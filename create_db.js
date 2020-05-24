@@ -25,9 +25,3 @@ sequelize.authenticate().then(async () => {
     result = await sequelize.query(query, { raw: true });
 
 });
-
-
-
-// return sequelize.query("CREATE DATABASE chala").then(data => {
-// });
-
