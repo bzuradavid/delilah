@@ -5,8 +5,7 @@ const sequelize = new Sequelize("", "root", "root", {
 });
   
 sequelize.authenticate().then(async () => {
-    let query;
-    let result;
+    let query, result;
     query = "DROP DATABASE delilah";
     result = await sequelize.query(query, { raw: true });
     query = "CREATE DATABASE delilah";
@@ -23,5 +22,4 @@ sequelize.authenticate().then(async () => {
     result = await sequelize.query(query, { raw: true });
     query = "CREATE TABLE delilah.medios ( id_medio INT PRIMARY KEY AUTO_INCREMENT , descripcion VARCHAR(50) )";
     result = await sequelize.query(query, { raw: true });
-
 });
