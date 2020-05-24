@@ -3,11 +3,15 @@ const Sequelize = require('sequelize') ;
 const sequelize = new Sequelize("", "root", "root", {
     dialect: "mysql"
 });
+
+let drop_db = true;
   
 sequelize.authenticate().then(async () => {
     let query, result;
-    query = "DROP DATABASE delilah";
-    result = await sequelize.query(query, { raw: true });
+    if(drop_db){
+        query = "DROP DATABASE delilah";
+        result = await sequelize.query(query, { raw: true });
+    }
     query = "CREATE DATABASE delilah";
     result = await sequelize.query(query, { raw: true });
     query = "CREATE TABLE delilah.pedidos ( id_pedido INT PRIMARY KEY AUTO_INCREMENT , id_usuario INT NOT NULL , id_estado INT NOT NULL , id_medio INT NOT NULL , fecha DATE NOT NULL )";
