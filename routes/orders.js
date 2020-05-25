@@ -32,13 +32,15 @@ Router.get("/", authenticateUser, async (req, res) => {
 })
 
 Router.post("/", authenticateUser, async (req, res) => {
-    // let currentDate = new Date();
-    // let dateISO = currentDate.toISOString();
-    // let date = dateISO.split('T')[0];
-    // let time = dateISO.split('T')[1].splice(0,7);
-    // let datetime = date + " " + time;
+    let currentDate = new Date();
+    currentDate.setHours(currentDate.getHours() - 3);
+    let dateISO = currentDate.toISOString();
+    let date = dateISO.split('T')[0];
+    let time = dateISO.split('T')[1];
+    time = time.split(".")[0];
+    let datetime = date + " " + time;
     try{
-        let query = `INSERT INTO orders (user_id, payment_method_id ) VALUES ('${req.user.user_id}', '${req.body.payment_method_id}')`;
+        let query = `INSERT INTO orders (user_id, payment_method_id, created_time ) VALUES ('${req.user.user_id}', '${req.body.payment_method_id}', '${datetime}')`;
         let result = await sequelize.query( query, { raw: true } );
         let order_id = result[0];
         req.body.products.forEach( async (product) => {

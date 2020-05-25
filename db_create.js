@@ -14,7 +14,7 @@ sequelize.authenticate().then(async () => {
     }
     query = "CREATE DATABASE delilah";
     result = await sequelize.query(query, { raw: true });
-    query = "CREATE TABLE delilah.orders ( order_id INT PRIMARY KEY AUTO_INCREMENT , user_id INT NOT NULL , status_id INT DEFAULT '0' NOT NULL , payment_method_id DEFAULT '0' INT NOT NULL , created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL )";
+    query = "CREATE TABLE delilah.orders ( order_id INT PRIMARY KEY AUTO_INCREMENT , user_id INT NOT NULL , status_id INT DEFAULT '0' NOT NULL , payment_method_id DEFAULT '0' INT NOT NULL , created_date DATETIME NOT NULL )";
     result = await sequelize.query(query, { raw: true });
     query = "CREATE TABLE delilah.users ( user_id INT PRIMARY KEY AUTO_INCREMENT , full_name VARCHAR(50) NOT NULL , email VARCHAR(100) NOT NULL , phone VARCHAR(100) NOT NULL , full_address VARCHAR(150) NOT NULL , password VARCHAR(20) NOT NULL , role VARCHAR(20) NOT NULL )";
     result = await sequelize.query(query, { raw: true });
