@@ -24,7 +24,8 @@ Router.post("/", async (req, res) => {
         res.status(res.statusCode);
         res.send(req.body);
     }catch(err){
-        console.log(err);
+        res.status(res.statusCode);
+        res.send("Ha ocurrido un error al crear el producto")
     }
 })
 
@@ -35,7 +36,20 @@ Router.put("/", async (req, res) => {
         res.status(res.statusCode);
         res.send(req.body);
     }catch(err){
-        console.log(err);
+        res.status(res.statusCode);
+        res.send("Ha ocurrido un error al actualizar el producto")
+    }
+})
+
+Router.delete("/:productId", async (req, res) => {
+    let query = `DELETE FROM products WHERE product_id = ${req.params.productId}`
+    try{
+        let result = await sequelize.query(query, { raw: true });
+        res.status(res.statusCode);
+        res.send("El producto ha sido eliminado");
+    }catch(err){
+        res.status(res.statusCode);
+        res.send("Ha ocurrido un error al eliminar el producto")
     }
 })
 
