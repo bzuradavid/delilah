@@ -25,7 +25,7 @@ Router.get("/", authenticateUser, async (req, res) => {
         let result = await sequelize.query(query, { raw: true });
         res.send(result[0]);
     } else {
-        let query = `SELECT * FROM orders JOIN users ON orders.user_id = users.user_id WHERE users.email = '${req.user.email}'`;
+        let query = `SELECT * FROM orders WHERE user_id= '${req.user.user_id}'`;
         let result = await sequelize.query(query, { raw: true });
         res.send(result[0]);
     }
@@ -56,8 +56,21 @@ Router.post("/", authenticateUser, async (req, res) => {
     }
 })
 
-Router.post("/", async (req, res) => {
-    let query = "INSERT INTO orders () VALUES "
+Router.put("/:orderId", authenticateUser, async (req, res) => {
+    if (req.user.role == 'admin') {
+        try {
+            let query = `UPDATE orders SET status_id = ${req.body.status_id} WHERE order_id = ${req.params.orderId}`
+            let result = await sequelize.query( query, { raw: true } );
+            res.status(200);
+            res.send(req.body)
+        } catch (err) {
+            res.status(500)
+            res.json({error: "No se ha podido cambiar el estado del pedido"})
+        } 
+    } else {
+        res.status(403);
+        res.json({error: "Su usuario no tiene autorización para realizar esta acción"});
+    }
 })
 
 module.exports = Router;
