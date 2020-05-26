@@ -25,7 +25,7 @@ Router.get("/", authenticateUser, async (req, res) => {
         let result = await sequelize.query(query, { raw: true });
         res.send(result[0]);
     } else {
-        let query = `SELECT * FROM orders WHERE user_id= '${req.user.user_id}'`;
+        let query = `SELECT * FROM orders WHERE user_id = '${req.user.user_id}'`;
         let result = await sequelize.query(query, { raw: true });
         res.send(result[0]);
     }
@@ -61,8 +61,10 @@ Router.put("/:orderId", authenticateUser, async (req, res) => {
         try {
             let query = `UPDATE orders SET status_id = ${req.body.status_id} WHERE order_id = ${req.params.orderId}`
             let result = await sequelize.query( query, { raw: true } );
+            query = `SELECT * FROM orders WHERE order_id = ${req.params.orderId}`;
+            result = await sequelize.query( query, { raw: true } );
             res.status(200);
-            res.send(req.body)
+            res.send(result[0])
         } catch (err) {
             res.status(500)
             res.json({error: "No se ha podido cambiar el estado del pedido"})
