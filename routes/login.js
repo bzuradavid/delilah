@@ -23,7 +23,7 @@ Router.post("/login", async (req, res) => {
             res.status(200)
             res.send(response)
         } else {
-            res.status(403)
+            res.status(401)
             res.send("Email o contraseña incorrectos")
         }
     } catch(err) {
