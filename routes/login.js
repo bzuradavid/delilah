@@ -5,7 +5,7 @@ const Router = express.Router()
 const sequelize = require('../db_connect')
 const jwt = require('jsonwebtoken')
 
-Router.post("/login", async (req, res) => {
+Router.post( "/login", async (req, res) => {
     try {
         let query = `SELECT * FROM users WHERE email = '${req.body.email}'`
         let result = await sequelize.query(query, { raw: true })
