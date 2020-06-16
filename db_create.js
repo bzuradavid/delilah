@@ -7,11 +7,14 @@ const sequelize = new Sequelize("", "root", "root", {
 let drop_db = true;
   
 sequelize.authenticate().then(async () => {
+
     let query, result;
+
     if(drop_db){
         query = "DROP DATABASE delilah";
         result = await sequelize.query(query, { raw: true });
     }
+
     query = "CREATE DATABASE delilah";
     result = await sequelize.query(query, { raw: true });
     query = "CREATE TABLE delilah.orders ( order_id INT PRIMARY KEY AUTO_INCREMENT, user_id INT NOT NULL , status_id INT NOT NULL DEFAULT '0' , payment_method_id INT NOT NULL DEFAULT '0' , created_date DATETIME NOT NULL )";
@@ -26,6 +29,8 @@ sequelize.authenticate().then(async () => {
     result = await sequelize.query(query, { raw: true });
     query = "CREATE TABLE delilah.payment_methods ( payment_method_id INT PRIMARY KEY AUTO_INCREMENT , title VARCHAR(50) )";
     result = await sequelize.query(query, { raw: true });
+    
     query = "INSERT INTO delilah.users (full_name, email, phone, full_address, password, role) VALUES ( 'Super admin', 'admin@delilah.com', '3515555555', 'Av. Siempreviva 576', '12345678', 'admin' )";
     result = await sequelize.query(query, { raw: true });
+
 });
