@@ -9,7 +9,7 @@ const OrderRoutes = require('./routes/orders');
 const app = express();
 
 app.use(bodyParser.json());
-app.use("/", LoginRoutes);
+app.use("/login", LoginRoutes);
 app.use("/products", ProductRoutes);
 app.use("/users", UserRoutes);
 app.use("/orders", OrderRoutes);

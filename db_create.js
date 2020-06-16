@@ -30,7 +30,7 @@ sequelize.authenticate().then(async () => {
     query = "CREATE TABLE delilah.payment_methods ( payment_method_id INT PRIMARY KEY AUTO_INCREMENT , title VARCHAR(50) )";
     result = await sequelize.query(query, { raw: true });
     
-    query = "INSERT INTO delilah.users (full_name, email, phone, full_address, password, role) VALUES ( 'Super admin', 'admin@delilah.com', '3515555555', 'Av. Siempreviva 576', '12345678', 'admin' )";
+    query = "INSERT INTO delilah.users (full_name, email, phone, full_address, password, role) VALUES ( 'Super admin', 'admin@delilah.com', '3515555555', 'Av. Siempreviva 576', '1234', 'admin' )";
     result = await sequelize.query(query, { raw: true });
 
 });
