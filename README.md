@@ -28,15 +28,204 @@ Instrucciones para instalar y correr el proyecto en el entorno local.
 - En la carpeta raíz del proyecto ejecutar el siguiente comando para correr el servidor
     npm start
 
-DOCUMENTACIÓN API
 
-- ADMIN LOGIN
 
-METHOD: POST
 
-BODY: 
-{
-	"email":"david@gmail.com",
-	"password":"1234"
-}
+DOCUMENTACIÓN ENDPOINTS
+-----------------------
 
+
+- LOGIN (los datos del siguiente ejemplo sirven para autenticarse como usuario administrador)
+
+    URL: http://localhost:3000/login/
+
+    REQUEST:
+
+        METHOD: POST
+        BODY: 
+        {
+            "email": "admin@delilah.com",
+            "password": "1234"
+        }
+
+    RESPONSE:
+
+        BODY:
+        {
+            "token": "eyJh..."
+        }
+
+
+
+- CREATE USER (por defecto los nuevos usuarios son creados con el role "user")
+
+    URL: http://localhost:3000/users/
+
+    REQUEST:
+
+        METHOD: POST
+        BODY:
+        {
+            "full_name": "Javier Cuenca",
+            "email": "javier@rapihogar.com",
+            "phone": "3513471202",
+            "full_address": "avenida siempreviva 1234",
+            "password": "35252525"
+        }
+
+    RESPONSE:
+
+        BODY:
+        {
+            "full_name": "Javier Cuenca",
+            "email":"javier@rapihogar.com",
+            "phone": "3513471202",
+            "full_address": "avenida siempreviva 1234",
+            "password": "35252525"
+            "user_id": 2
+        }
+
+
+
+- LIST USERS (si el usuario logueado tiene rol de administrador, lista todos los usuarios, si no lista los datos del usuario logueado)
+
+    URL: http://localhost:3000/users/
+
+    REQUEST:
+
+        METHOD: GET
+        HEADERS:
+            Authorization = Bearer: {token}
+        
+
+    RESPONSE:
+        [
+            {
+                "user_id": 1,
+                "full_name": "Super admin",
+                "email": "admin@delilah.com",
+                "phone": "3515555555",
+                "full_address": "Av. Siempreviva 576",
+                "password": "1234",
+                "role": "admin"
+            },
+            {
+                "user_id": 2,
+                "full_name": "Javier Cuenca",
+                "email": "javier@rapihogar.com",
+                "phone": "3513471202",
+                "full_address": "avenida siempreviva 1234",
+                "password": "35252525",
+                "role": "user"
+            }
+        ]
+
+
+
+- CREATE PRODUCT (solo puede ser utilizado por usuarios con rol de administrador)
+
+    URL: http://localhost:3000/products/
+
+    REQUEST:
+
+        METHOD: POST
+
+        HEADERS:
+        {
+            Authorization = Bearer: {{token}}
+        }
+
+        BODY:
+        {
+            "title": "Pizza Especial",
+            "price":"5.99"
+        }
+
+    RESPONSE:
+
+        BODY:
+        {
+            "title": "Pizza Especial",
+            "price": "5.99",
+            "product_id": 1
+        }
+
+
+
+- MODIFY PRODUCT (solo puede ser utilizado por usuarios con rol de administrador)
+
+    URL: http://localhost:3000/products/{product_id}/
+
+    REQUEST:
+
+        METHOD: PUT
+
+        HEADERS:
+        {
+            Authorization = Bearer: {token}
+        }
+
+        BODY:
+        {
+            "title": "Pizza Especial",
+            "price":"6.99"
+        }
+
+    RESPONSE:
+
+        BODY:
+        {
+            "title": "Pizza Especial",
+            "price": "6.99",
+        }
+
+
+
+- GET PRODUCT (solo usuarios logueados pueden listar los productos, cualquiera sea su rol)
+
+    URL: http://localhost:3000/products/{product_id}/
+
+    REQUEST:
+
+        METHOD: GET
+
+        HEADERS:
+        {
+            Authorization = Bearer: {{token}}
+        }
+
+    RESPONSE:
+    
+        BODY:
+        [
+            {
+                "product_id": 1,
+                "title": "Pizza Especial",
+                "price": "5.99"
+            }
+        ]
+
+
+- LIST PRODUCTS (solo usuarios logueados pueden listar los productos, cualquiera sea su rol)
+
+    URL: http://localhost:3000/products/
+
+    REQUEST:
+
+        METHOD: GET
+
+        HEADERS:
+        {
+            Authorization = Bearer: {{token}}
+        }
+
+    RESPONSE:
+
+        BODY:
+        [
+            {
+                "product_id": 1,
+                "title": "Pizza Especial B",
+                "price": "5.99"
+            }
+        ]

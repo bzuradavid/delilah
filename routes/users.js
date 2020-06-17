@@ -20,16 +20,21 @@ const authenticateUser = (req, res, next) => {
 }
 
 Router.get('/', authenticateUser, async (req, res) => {
-    if (req.user.role == 'admin') {
-        let query = "SELECT * FROM users";
-        let result = await sequelize.query(query, { raw: true });
-        res.status(200);
-        res.send(result[0]);
-    } else {
-        let query = `SELECT * FROM users WHERE email = ${req.user.email}`;
-        let result = await sequelize.query(query, { raw: true });
-        res.send(result[0]);
-    }
+    try {
+        if (req.user.role == 'admin') {
+            let query = "SELECT * FROM users";
+            let result = await sequelize.query(query, { raw: true });
+            res.status(200);
+            res.send(result[0]);
+        } else {
+            let query = `SELECT * FROM users WHERE email = '${req.user.email}'`;
+            let result = await sequelize.query(query, { raw: true });
+            res.send(result[0]);
+        }
+     }catch(err){
+        res.status(500);
+        res.send("Ha ocurrido un error");
+     }
 })
 
 Router.post('/', async (req, res) => {

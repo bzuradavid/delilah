@@ -60,9 +60,9 @@ Router.post("/", authenticateUser, async (req, res) => {
     }
 })
 
-Router.put("/", authenticateUser, async (req, res) => {
+Router.put("/:productId", authenticateUser, async (req, res) => {
     if (req.user.role == "admin") {
-        let query = `UPDATE products SET title = '${req.body.title}', price = '${req.body.price}' WHERE product_id = ${req.body.product_id}`;
+        let query = `UPDATE products SET title = '${req.body.title}', price = '${req.body.price}' WHERE product_id = ${req.params.productId}`;
         try {
             let result = await sequelize.query(query, { raw: true });
             res.status(200);
