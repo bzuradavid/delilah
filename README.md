@@ -1,33 +1,33 @@
 # delilah
-Repositorio para el proyecto Delilah Resto de Acámica
 
 Instrucciones para instalar y correr el proyecto en el entorno local.
+(Si ya posee los archivos del proyecto, omitir pasos 2, 3).
 
-- Descargar e instalar la versión LTS de Node.js desde su página oficial (https://nodejs.org/es/)
-- En la línea de comandos, pararse en la carpeta donde desea clonar el repositorio
-- Clonar el repositorio ejecutando el siguiente comando:
+1) Descargar e instalar la versión LTS de Node.js desde su página oficial (https://nodejs.org/es/)
+2) En la línea de comandos, posicionarse en la carpeta donde desea clonar el repositorio
+3) Clonar el repositorio del proyecto ejecutando el siguiente comando:
     git clone https://github.com/bzuradavid/delilah.git
-- Instalar WAMP si el entorno es Windows o MAMP si es MAC OS
-- Configurar MAMP o WAMP para que MySQL corra en el puerto 3306
-- Configurar en MAMP o WAMP la carpeta raíz de nuestro proyecto como carpeta raíz del Web Server
-- En la carpeta raíz de nuestro proyecto, ejecutar el siguiente comando para instalar las dependencias del mismo
+4) Instalar WAMP si el entorno es Windows o MAMP si es MAC OS
+5) Configurar MAMP o WAMP seleccionando el puerto 3306 para que corra MySQL
+6) Configurar MAMP o WAMP seleccionando la carpeta raíz de nuestro proyecto como carpeta raíz del Web Server
+7) En la carpeta raíz de nuestro proyecto, ejecutar el siguiente comando para instalar las dependencias del mismo
     npm install
-- Crear el archivo .env en la carpeta raíz del proyecto. Copiar en el mismo el siguiente contenido, reemplazando "root" en user y pass por
-    los accesos provistos por MAMP o WAMP
+8) Si el repositorio ha sido clonado desde github, crear el archivo .env en la carpeta raíz del proyecto.
+9) El archivo .env debe poseer el siguiente contenido, reemplazando "root" en USER y PASS si es que corresponde
+    por los accesos provistos por MAMP o WAMP (Los siguientes son los datos de acceso por defecto en MAMP).
 
     DB_HOST = localhost,
     PORT = 3306,
-    USER = root,
-    PASS = root,
+    DB_USER = root,
+    DB_PASS = root,
     DB_NAME = delilah,
     DIALECT = mysql
 
-- Inicializar el servidor en MAMP o WAMP
-- En la carpeta raíz del proyecto, ejecutar el siguiente comando para crear la base de datos y en ella el Usuario Administrador
+9) Inicializar el servidor en MAMP o WAMP
+10) En la carpeta raíz del proyecto, ejecutar el siguiente comando para crear la base de datos y en ella el Usuario Administrador
     npm run create-db
-- En la carpeta raíz del proyecto ejecutar el siguiente comando para correr el servidor
+11) En la carpeta raíz del proyecto ejecutar el siguiente comando para correr el servidor
     npm start
-
 
 
 
@@ -42,6 +42,7 @@ DOCUMENTACIÓN ENDPOINTS
     REQUEST:
 
         METHOD: POST
+        
         BODY: 
         {
             "email": "admin@delilah.com",
@@ -50,7 +51,6 @@ DOCUMENTACIÓN ENDPOINTS
 
     RESPONSE:
 
-        BODY:
         {
             "token": "eyJh..."
         }
@@ -64,6 +64,7 @@ DOCUMENTACIÓN ENDPOINTS
     REQUEST:
 
         METHOD: POST
+
         BODY:
         {
             "full_name": "Javier Cuenca",
@@ -75,7 +76,6 @@ DOCUMENTACIÓN ENDPOINTS
 
     RESPONSE:
 
-        BODY:
         {
             "full_name": "Javier Cuenca",
             "email":"javier@rapihogar.com",
@@ -94,11 +94,15 @@ DOCUMENTACIÓN ENDPOINTS
     REQUEST:
 
         METHOD: GET
+
         HEADERS:
-            Authorization = Bearer: {token}
+        {
+            Authorization = Bearer: {{token}}
+        }
         
 
     RESPONSE:
+
         [
             {
                 "user_id": 1,
@@ -143,7 +147,6 @@ DOCUMENTACIÓN ENDPOINTS
 
     RESPONSE:
 
-        BODY:
         {
             "title": "Pizza Especial",
             "price": "5.99",
@@ -173,7 +176,6 @@ DOCUMENTACIÓN ENDPOINTS
 
     RESPONSE:
 
-        BODY:
         {
             "title": "Pizza Especial",
             "price": "6.99",
@@ -196,7 +198,6 @@ DOCUMENTACIÓN ENDPOINTS
 
     RESPONSE:
     
-        BODY:
         [
             {
                 "product_id": 1,
@@ -204,6 +205,7 @@ DOCUMENTACIÓN ENDPOINTS
                 "price": "5.99"
             }
         ]
+
 
 
 - LIST PRODUCTS (solo usuarios logueados pueden listar los productos, cualquiera sea su rol)
@@ -221,7 +223,6 @@ DOCUMENTACIÓN ENDPOINTS
 
     RESPONSE:
 
-        BODY:
         [
             {
                 "product_id": 1,
@@ -229,3 +230,107 @@ DOCUMENTACIÓN ENDPOINTS
                 "price": "5.99"
             }
         ]
+
+
+
+- CREATE ORDER
+
+    URL: http://localhost:3000/orders/
+
+    REQUEST:
+
+        METHOD: POST
+
+        HEADERS:
+        {
+            Authorization = Bearer: {{token}}
+        }
+
+        BODY:
+        {
+            "payment_method_id": 1,
+            "products": [
+                {
+                    "product_id": 1,
+                    "quantity": 2
+                },
+                {
+                    "product_id": 2,
+                    "quantity": 3
+                }
+            ]
+        }
+
+    RESPONSE:
+
+        {
+            "payment_method_id": 1,
+            "products": [
+                {
+                    "product_id": 1,
+                    "quantity": 2
+                }
+            ],
+            "order_id": 2
+        }
+
+
+
+
+- LIST ORDERS (si el usuario es admin lista todos los pedidos, caso contrario lista los pedidos del usuario logueado)
+
+    URL: http://localhost:3000/orders/
+
+    REQUEST: 
+
+        METHOD: GET
+
+        HEADERS:
+        {
+            Authorization = Bearer: {{token}}
+        }
+
+    RESPONSE:
+
+        {
+            "payment_method_id": 1,
+            "products": [
+                {
+                    "product_id": 1,
+                    "quantity": 2
+                }
+            ],
+            "order_id": 1
+        }
+
+- CHANGE ORDER STATUS (Sólo un usuario con rol de administrador puede realizar esta acción):
+    
+    URL: http://localhost:3000/order/{order_id}/
+
+    REQUEST:
+
+        METHOD: PUT
+
+        HEADERS:
+        {
+            Authorization = Bearer: {{token}}
+        }
+
+        BODY:
+        {
+            "status_id": 2
+        }
+
+    RESPONSE:
+
+        [
+            {
+                "order_id": 1,
+                "user_id": 1,
+                "status_id": 2,
+                "payment_method_id": 1,
+                "created_date": "2020-06-18T18:29:30.000Z"
+            }
+        ]
+
+
