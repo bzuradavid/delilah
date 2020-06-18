@@ -1,20 +1,28 @@
-# delilah
 
-Instrucciones para instalar y correr el proyecto en el entorno local.
-(Si ya posee los archivos del proyecto, omitir pasos 2, 3).
+# delilah-restó
+
+Instrucciones para instalar y correr el proyecto en el entorno local
+--------------------------------------------------------------------
+
+Si ya posee los archivos del proyecto en su ordenador, omitir pasos 2, 3 y 8.
 
 1) Descargar e instalar la versión LTS de Node.js desde su página oficial (https://nodejs.org/es/)
 2) En la línea de comandos, posicionarse en la carpeta donde desea clonar el repositorio
 3) Clonar el repositorio del proyecto ejecutando el siguiente comando:
+
     git clone https://github.com/bzuradavid/delilah.git
+
 4) Instalar WAMP si el entorno es Windows o MAMP si es MAC OS
 5) Configurar MAMP o WAMP seleccionando el puerto 3306 para que corra MySQL
 6) Configurar MAMP o WAMP seleccionando la carpeta raíz de nuestro proyecto como carpeta raíz del Web Server
-7) En la carpeta raíz de nuestro proyecto, ejecutar el siguiente comando para instalar las dependencias del mismo
+7) Desde la línea de comandos, posicionados en la carpeta raíz de nuestro proyecto, 
+    ejecutar el siguiente comando para instalar las dependencias del mismo:
+
     npm install
-8) Si el repositorio ha sido clonado desde github, crear el archivo .env en la carpeta raíz del proyecto.
-9) El archivo .env debe poseer el siguiente contenido, reemplazando "root" en USER y PASS si es que corresponde
-    por los accesos provistos por MAMP o WAMP (Los siguientes son los datos de acceso por defecto en MAMP).
+
+8) Crear el archivo .env en la carpeta raíz del proyecto.
+9) El archivo .env debe poseer el siguiente contenido, reemplazando "root" en USER y PASS
+    por los accesos provistos por MAMP o WAMP (Los siguientes son los datos de acceso por defecto en MAMP):
 
     DB_HOST = localhost,
     PORT = 3306,
@@ -24,9 +32,12 @@ Instrucciones para instalar y correr el proyecto en el entorno local.
     DIALECT = mysql
 
 9) Inicializar el servidor en MAMP o WAMP
-10) En la carpeta raíz del proyecto, ejecutar el siguiente comando para crear la base de datos y en ella el Usuario Administrador
+10) En la carpeta raíz del proyecto, ejecutar el siguiente comando para crear la base de datos y en ella el Usuario Administrador:
+
     npm run create-db
-11) En la carpeta raíz del proyecto ejecutar el siguiente comando para correr el servidor
+
+11) En la carpeta raíz del proyecto, ejecutar el siguiente comando para correr el servidor:
+
     npm start
 
 
@@ -35,7 +46,7 @@ DOCUMENTACIÓN ENDPOINTS
 -----------------------
 
 
-- LOGIN (los datos del siguiente ejemplo sirven para autenticarse como usuario administrador)
+- LOGIN (los datos del siguiente ejemplo son los del usuario administrador que se crea al crear la base de datos)
 
     URL: http://localhost:3000/login/
 
@@ -67,21 +78,21 @@ DOCUMENTACIÓN ENDPOINTS
 
         BODY:
         {
-            "full_name": "Javier Cuenca",
-            "email": "javier@rapihogar.com",
-            "phone": "3513471202",
-            "full_address": "avenida siempreviva 1234",
-            "password": "35252525"
+            "full_name": "Usuario de ejemplo",
+            "email": "usuario@ejemlo.com",
+            "phone": "3515555555",
+            "full_address": "Av. Velez Sarsfield 576",
+            "password": "5678"
         }
 
     RESPONSE:
 
         {
-            "full_name": "Javier Cuenca",
-            "email":"javier@rapihogar.com",
-            "phone": "3513471202",
-            "full_address": "avenida siempreviva 1234",
-            "password": "35252525"
+            "full_name": "Usuario de ejemplo",
+            "email": "usuario@ejemlo.com",
+            "phone": "3515555555",
+            "full_address": "Av. Velez Sarsfield 576",
+            "password": "5678"
             "user_id": 2
         }
 
@@ -115,11 +126,11 @@ DOCUMENTACIÓN ENDPOINTS
             },
             {
                 "user_id": 2,
-                "full_name": "Javier Cuenca",
-                "email": "javier@rapihogar.com",
-                "phone": "3513471202",
-                "full_address": "avenida siempreviva 1234",
-                "password": "35252525",
+                "full_name": "Usuario de ejemplo",
+                "email": "usuario@ejemlo.com",
+                "phone": "3515555555",
+                "full_address": "Av. Velez Sarsfield 576",
+                "password": "5678",
                 "role": "user"
             }
         ]
@@ -226,8 +237,13 @@ DOCUMENTACIÓN ENDPOINTS
         [
             {
                 "product_id": 1,
-                "title": "Pizza Especial B",
+                "title": "Pizza Especial",
                 "price": "5.99"
+            },
+            {
+                "product_id": 2,
+                "title": "Pizza Especial Con Champignones",
+                "price": "6.99"
             }
         ]
 
