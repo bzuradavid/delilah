@@ -32,7 +32,8 @@ Si ya posee los archivos del proyecto en su ordenador, omitir pasos 2, 3 y 8.
     DIALECT = mysql
 
 9) Inicializar el servidor en MAMP o WAMP
-10) En la carpeta raíz del proyecto, ejecutar el siguiente comando para crear la base de datos y en ella el Usuario Administrador:
+10) En la carpeta raíz del proyecto, ejecutar el siguiente comando para crear la base de datos y en ella el
+    Usuario Administrador:
 
     npm run create-db
 
