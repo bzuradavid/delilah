@@ -31,6 +31,26 @@ Router.get("/", authenticateUser, async (req, res) => {
     }
 })
 
+Router.delete("/:orderId", authenticateUser, async (req, res) => {
+    try {
+        let query;
+        let result;
+        if (req.user.role == 'admin') {
+            query = `DELETE FROM orders WHERE order_id = ${req.params.orderId}`;
+            result = await sequelize.query(query, { raw: true });
+            query = `DELETE FROM product_order WHERE order_id = ${req.params.orderId}`;
+            result = await sequelize.query(query, { raw: true });
+            res.send(`El pedido #${req.params.orderId} ha sido eliminado`);
+        } else {
+            res.status(403);
+            res.send("Usted no tiene permiso para realizar esta acción");
+        }
+    } catch(err) {
+        res.status(500);
+        res.send("Ha ocurrido un error al intentar eliminar el pedido");
+    }
+})
+
 Router.post("/", authenticateUser, async (req, res) => {
     let currentDate = new Date();
     currentDate.setHours(currentDate.getHours() - 3);
