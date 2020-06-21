@@ -40,6 +40,7 @@ Router.delete("/:orderId", authenticateUser, async (req, res) => {
             result = await sequelize.query(query, { raw: true });
             query = `DELETE FROM product_order WHERE order_id = ${req.params.orderId}`;
             result = await sequelize.query(query, { raw: true });
+            res.status(200);
             res.send(`El pedido #${req.params.orderId} ha sido eliminado`);
         } else {
             res.status(403);

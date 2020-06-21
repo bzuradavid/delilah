@@ -351,3 +351,22 @@ DOCUMENTACIÓN ENDPOINTS
         ]
 
 
+- DELETE ORDER (Sólo un usuario con rol de administrador puede realizar esta acción):
+    
+    URL: http://localhost:3000/order/{order_id}/
+
+    REQUEST:
+
+        METHOD: DELETE
+
+        HEADERS:
+        {
+            Authorization = Bearer: {{token}}
+        }
+
+    RESPONSE:
+
+        "El pedido #{pedido_id} ha sido eliminado"
+    
+
+
