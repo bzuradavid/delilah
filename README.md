@@ -3,7 +3,6 @@
 
 Instrucciones para instalar y correr el proyecto en el entorno local
 --------------------------------------------------------------------
-
 Si ya posee los archivos del proyecto en su ordenador, omitir pasos 2, 3 y 8.
 
 1) Descargar e instalar la versión LTS de Node.js desde su página oficial (https://nodejs.org/es/)
