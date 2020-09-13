@@ -1,18 +1,12 @@
 
 # delilah-restó
 
-<<<<<<< HEAD
-Instrucciones para instalar y correr el proyecto en el entorno local
---------------------------------------------------------------------
-Si ya posee los archivos del proyecto en su ordenador, omitir pasos 2, 3 y 8.
-=======
 Instructions for installing and running the project in a local environment
 --------------------------------------------------------------------------
 
 1) Download and install the LTS version of Node.js (https://nodejs.org/)
 2) On the command line, go to the folder where you would like to clone the repository
 3) Clone the repository running the following command:
->>>>>>> b6f6660f65dfa9dfb2b53ca6e64bc536b988299c
 
     git clone https://github.com/bzuradavid/delilah-REST-API.git
 
